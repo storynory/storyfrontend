@@ -1,0 +1,39 @@
+# Node.js dependencies
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build and output directories
+.build/
+.vite/
+output/
+dist/
+.svelte-kit/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# IDE and editor settings
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Miscellaneous
+*.lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Static file cache
+static/**/*~

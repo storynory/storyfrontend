@@ -1,0 +1,84 @@
+<div class="carousel">
+    <div class="group">
+      <div class="card">A</div>
+      <div class="card">B</div>
+      <div class="card">C</div>
+    </div>
+    <!-- Add aria-hidden to hide the duplicated cards from screen readers. -->
+    <div aria-hidden class="group">
+      <div class="card">A</div>
+      <div class="card">B</div>
+      <div class="card">C</div>
+    </div>
+  </div>
+
+<style>
+    .carousel {
+      margin: 0 auto;
+      padding: 20px 0;
+      max-width: 700px;
+      overflow: hidden;
+      display: flex;
+    }
+  
+    .card {
+      width: 100%;
+      color: white;
+      border-radius: 24px;
+      box-shadow: rgba(0, 0, 0, 10%) 5px 5px 20px 0;
+      padding: 20px;
+      font-size: xx-large;
+      justify-content: center;
+      align-items: center;
+      min-height: 200px;
+  
+      &:nth-child(1) {
+        background: #7958ff;
+      }
+  
+      &:nth-child(2) {
+        background: #5d34f2;
+      }
+  
+      &:nth-child(3) {
+        background: #4300da;
+      }
+    }
+    .carousel {
+    /* ... */
+    > * {
+      flex: 0 0 100%;
+    }
+  }
+
+  .carousal:hover {
+
+    animation-play-state: paused;
+  }
+
+  .carousel:hover .group {
+  animation-play-state: paused; /* Pause animation on hover */
+}
+
+
+  /* Group the cards for better structure. */
+  .group {
+    display: flex;
+    gap: 20px;
+    /* Add padding to the right to create a gap between the last and first card. */
+    padding-right: 20px;
+    will-change: transform; /* We should be nice to the browser - let it know what we're going to animate. */
+    animation: scrolling 10s linear infinite;
+  }
+
+  
+  @keyframes scrolling {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  </style>
+ 

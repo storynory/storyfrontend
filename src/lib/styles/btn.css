@@ -1,0 +1,51 @@
+  @keyframes animateButton {
+    0% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.2);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .funButton {
+    display: inline-block;
+    background-color: midnightblue;
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    /* Added */
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+  }
+
+  .funButton:hover {
+    background-color: #FF6161;
+    color: midnightblue;
+  }
+
+  .funButton:active {
+    background-color: #ff6600;
+  }
+
+  .funButton:active::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
+    animation: animateButton 0.5s linear;
+    z-index: -1;
+    border-radius: 20px;
+  }

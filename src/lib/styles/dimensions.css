@@ -1,0 +1,22 @@
+.page {
+    max-width: 2000px;
+margin:auto;
+}
+
+.story {
+    max-width: 800px;
+}
+
+.container {
+width: 100%;
+ position: relative;
+}
+
+main {
+    margin: auto;
+}
+
+.page-width {
+    max-width: 1200px;
+    margin: auto;
+}

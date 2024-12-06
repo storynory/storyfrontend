@@ -1,0 +1,11 @@
+
+
+@container story (min-width: 600px) {
+
+    .card section > * {
+        flex: 1 ;
+    
+  
+    }
+
+}
