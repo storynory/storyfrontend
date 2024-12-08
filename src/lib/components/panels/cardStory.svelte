@@ -2,23 +2,41 @@
     // @ts-nocheck
     import A from "../../../routes/[...error].svelte"
 import "./container.css";
-    let { title, content, src, width, height, alt, slug } = $props();
+    let { title, content, src, alt, slug,sizes } = $props();
+    let medium = sizes.find(size => size.name === "medium");
+    let thumb = sizes.find(size => size.name === "thumbnail");
+    console.log(thumb.sourceUrl)
 </script>
  
 <div class ="card -p shadow -m">
     <header>
-    <h2> <a href="/{slug}" >{title}</a></h2>   
+    <h2> <a href="/{slug}/" >{title}</a></h2>   
     </header>
     <section class="-p">
         <figure class="-p-r -p-b">
-            <a href="/{slug}" >
-                <img 
-                src="{src}"
-                alt="{alt}"
-                width="{width}"
-                height="{height}"
-                />
+            <a href="/{slug}/" aria-label="Read more about Seminole tax hike">
+                <picture>
+                    <source 
+                      srcset="{thumb.sourceUrl}" 
+                      media="(max-width: 480px)"
+                      width={thumb.width}
+                      height="{thumb.height}"
+                      >
+                    <source 
+                      srcset="{medium.sourceUrl}" 
+                      media="(min-width: 481px)"
+                     width={medium.width}
+                      height="{medium.height}"
+                      >
+                    <img 
+                      src="{medium.sourceUrl}" 
+                      alt="{alt}"
+                      width={medium.width}
+                      height="{medium.height}"
+                      >
+                  </picture>
                 
+       
             </a>
         </figure>
            
@@ -47,9 +65,6 @@ import "./container.css";
     justify-content: space-evenly;
  
 }
-
-
-
 
 
 

@@ -1,5 +1,5 @@
 <script>
-import Welcome from "$lib/components/panels/InView.svelte";
+import Welcome from "$lib/components/panels/welcome.svelte";
 
 </script>
 

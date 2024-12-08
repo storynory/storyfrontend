@@ -1,7 +1,8 @@
+
+
 <script>
-    import FlexPanel from '$lib/components/panels/flexPanel.svelte';
+
     import Card from '$lib/components/panels/cardStory.svelte';
-    import Panel from '$lib/components/Jpanel.svelte';
     import Banner from '$lib/components/Banner.svelte';
     let bk = 'background-image: url("/images/santa.webp")';
     import Side from '$lib/components/sidebars/asideFollowtheMoney.svelte'
@@ -11,24 +12,37 @@
     let { data } = $props();
     let posts = data.props.posts.stories || [];
 
+    // Extract sizes array from post data
+
+
   
 </script>
+<svelte:head>
+  <title>Storynory</title>
+  <meta name="description" content="Free Audio Stories for Kids" />
+</svelte:head>
+
 
 {#snippet renderCard(post)}
     <div class="card-item">
         <Card  
+            sizes = {post.featuredImage.node.mediaDetails.sizes}
             title={post.title}
             content={post.excerpt}
+            thumb={post.featuredImage.node.mediaDetails.sizes[0].sourceUrl }
+            thumbwidth={post.featuredImage.node.mediaDetails.sizes[0].width}
+            thumbheight={post.featuredImage.node.mediaDetails.sizes[0].height}
             src={post.featuredImage.node.mediaDetails.sizes[1].sourceUrl}
             width={post.featuredImage.node.mediaDetails.sizes[1].width}
             height={post.featuredImage.node.mediaDetails.sizes[1].height}
             alt={post.featuredImage.node.altText}
             slug={post.slug}
         />
+
     </div>
 {/snippet}
 
-<Banner img ={bk} />
+
 <IconBar/>
 
 <div class="page page-width -p j-bk-prime">
@@ -38,12 +52,14 @@
                 {#if i === 0}
                     <div class="card-item-full">
                         {@render renderCard(post)}
+                    
                     </div>
                     <div class="welcome">
                         <Welcome />
                     </div>
                 {:else}
                     {@render renderCard(post)}
+                
                 {/if}
             {/each}
         {:else}

@@ -1,4 +1,7 @@
+<script>
+import Search from "$lib/forms/search.svelte"
 
+</script>
 
 <!-- Navigation bar HTML structure -->
 
@@ -8,16 +11,7 @@
         <a href="/posts/">Stories</a>
         <a href="/pages/about-storynory/">About</a>
         <a href="/pages/about-storynory/">Support!</a>
-
-        <form class="search-form" action="/search" method="get">
-            <input 
-                class="search-input"
-                type="text" 
-                name="query"
-                placeholder="Search..." 
-                aria-label="Search"
-            />
-        </form>
+        <Search />
 </div>
 
 <style>

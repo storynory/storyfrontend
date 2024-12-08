@@ -2,16 +2,10 @@
 @import 'lib/styles/vars.css';
 @import 'lib/styles/typography.css';
 @import 'lib/styles/space.css';
-@import 'lib/styles/images.css';
+@import 'lib/styles/reset.css';
 @import 'lib/styles/dimensions.css';
 @import 'lib/styles/colors.css';
 @import 'lib/styles/shadows.css';
 
 
-/* In your global app.css or styles.css */
-/*stops text appearing the side of panel images - has to be in global styles */
-.panel__content > img {
-    display: block;
-     /* margin: 0 auto; Optional: centres the image */
-}
 
