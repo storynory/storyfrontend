@@ -1,7 +1,5 @@
-
-
 <script>
-
+   
     import Card from '$lib/components/panels/cardStory.svelte';
     import Banner from '$lib/components/Banner.svelte';
     let bk = 'background-image: url("/images/santa.webp")';
@@ -10,6 +8,7 @@
     import IconBar from '$lib/components/iconBar.svelte';
 
     let { data } = $props();
+
     let posts = data.props.posts.stories || [];
 
     // Extract sizes array from post data

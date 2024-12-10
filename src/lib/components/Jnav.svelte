@@ -1,5 +1,5 @@
 <script>
-import Search from "$lib/forms/search.svelte"
+import Search from "$lib/forms/search/search.svelte"
 
 </script>
 
@@ -130,30 +130,6 @@ button {
 }
 
 
-.navbar input[type=text] {
-       width: 300px;
-        padding: 6px;
-        border: none;
-        font-size: 16px;
-        border-radius: 50px; /* Super rounded corners */
-    }
-
-.search-input:focus {
-  transition: box-shadow 0.3s ease;
-  color: black;
-}
-
-.search-form {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  display: flex;
-  align-items: center;
-  border: 2px solid #ccc;
-  padding: 0.5rem 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-}
 
 
 @media (min-width: 600px) {

@@ -48,7 +48,7 @@ query MyQuery {
 
   try {
     const data = await request(endpoint, query);
-    //console.log('server data:', data)
+    
   
     let  stories = data.posts.nodes
     // Update cache with the fetched data and cache time

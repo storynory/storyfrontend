@@ -1,3 +1,5 @@
+
+export const prerender = true;
 import { error } from '@sveltejs/kit';
 import {PUBLIC_GRAPHQL } from '$env/static/public';
 

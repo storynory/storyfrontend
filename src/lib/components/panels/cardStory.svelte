@@ -5,7 +5,7 @@ import "./container.css";
     let { title, content, src, alt, slug,sizes } = $props();
     let medium = sizes.find(size => size.name === "medium");
     let thumb = sizes.find(size => size.name === "thumbnail");
-    console.log(thumb.sourceUrl)
+ 
 </script>
  
 <div class ="card -p shadow -m">

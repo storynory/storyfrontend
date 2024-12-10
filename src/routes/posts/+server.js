@@ -1,4 +1,5 @@
 // src/routes/posts/+server.js
+
 import { gql, request } from 'graphql-request';
 import { PUBLIC_GRAPHQL } from '$env/static/public';
 const endpoint = 'https://www.storynory.com/graphql/';
