@@ -41,10 +41,10 @@
     </div>
 {/snippet}
 
+<div class="page page-width">
+    <Banner img={bk}/>
+    <IconBar/>
 
-<IconBar/>
-
-<div class="page page-width -p j-bk-prime">
     <main>
         {#if posts.length > 0}
             {#each posts as post, i}
@@ -70,7 +70,6 @@
 <style>
 
 .page {
-   
     position: relative;
     display: flex;
     flex-wrap: wrap;
@@ -84,6 +83,7 @@ main {
     justify-content: space-around;
     flex-wrap: wrap;
     flex: 1 1 100%;
+    
 }
 
 /* Default styles (mobile-first approach) */

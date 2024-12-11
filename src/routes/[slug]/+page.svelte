@@ -6,10 +6,10 @@
 
 </script> 
 <div class="page -p">
-<main>
+<main class="j-bk-white -p page-width">
 <div class="story">
 {#if post}
-  <h1>{@html post.title}</h1>
+  <h1 class="-p">{@html post.title}</h1>
   <AudioPlayer mp3 = {post.mp3Url } />
     <p> <a href="{post.mp3Url }">Audio File</a></p> 
   {post.mp3Duration}
@@ -20,5 +20,12 @@
   <p>Post not found.</p>
 {/if}
 </div>
-</main>
+</main >
 </div>
+
+<style>
+h1 {
+    line-height: 1em;
+}
+
+</style>

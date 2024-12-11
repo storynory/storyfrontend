@@ -6,7 +6,7 @@
  
 
 </script>
-<div class="wrap j-bk-prime ">
+<div class="j-bk-prime ">
     
   <Jnav />
 

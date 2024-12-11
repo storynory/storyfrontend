@@ -12,7 +12,7 @@ let { img } = $props();
     <Snowfall />
     <div class="banner-content">
 
-        <h1>
+        <h1 class="j-txt-white j-bk-prime">
             Storynory
         </h1>
         <p>Free Audio Stories</p>
@@ -24,17 +24,20 @@ let { img } = $props();
     .banner {
         box-sizing: border-box;
         background-size: cover;
-   
-        background-position: left 50% bottom -180px !important;
+        background-position: left 50%  !important;
         background-repeat: repeat-x;
-        padding-bottom: 60px;
- position: relative;
-    overflow: hidden;
-    width: 100%;
-    background: linear-gradient(#123, #111);
-    z-index: 1;
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        z-index: 1;
+        display: block;
 }
 
+@media (min-width: 600px) {
+   .banner  {
+    display: block;
+    }
+}
     
 
     .banner-content {
@@ -49,12 +52,11 @@ let { img } = $props();
     .banner h1 {
         font-size: 100px;
         margin-top: 20px;
+        line-height: 1em;
         text-align: center;
         letter-spacing: 2px;
         text-shadow: 3px 3px 6px rgba(0, 35, 102, 0.8);
-        background-color: rgba(0, 35, 100, 0.5);
         padding: 15px 25px;
-        color: yellowgreen;
         border-radius: 10px;
        
         /* Add rounded corners */
@@ -71,6 +73,8 @@ let { img } = $props();
         border-radius: 10px;
         /* Add rounded corners */
     }
+
+
 
    
   

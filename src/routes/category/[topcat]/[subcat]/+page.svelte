@@ -28,7 +28,7 @@
     }
 </script>
 <div class="page -p">
-    <main >
+    <main class="j-bk-white -p" >
         <ul>
             {#each posts as post}
                 <li>

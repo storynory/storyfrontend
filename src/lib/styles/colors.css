@@ -6,30 +6,31 @@
     fill: white;
 }
 
+.j-bk-white {
+    background-color: white;
+}
+
 .j-bk-second {
-        background-color: #D21F3C;
+        background-color:midnightblue;
 }
 
 .j-bk-neutral {
     background-color: ivory;
 }
 
-
-.j-bk-third {
-    background-color: #5A6885;
-}
-
 .j-txt-white,
-.j-text-white a {
-        color: white
+.j-txt-white a {
+        color: ivory;
 }
+
+
 
 .j-txt-prime {
-        color: #FF6161;
+        color:#007A5E; 
 }
 
 .j-txt-second {
-        color: #FF6161;
+        color: midnightblue;
 }
 
 a {

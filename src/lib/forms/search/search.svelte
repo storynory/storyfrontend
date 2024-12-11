@@ -60,7 +60,7 @@
       name="query"
       placeholder="Search ME!"
       aria-label="Search"
-      on:input={performSearch} 
+      oninput={performSearch} 
     />
   </form>
   
@@ -87,8 +87,7 @@ position: absolute;
 top:0;
 left: 0;
 background-color: white;
-width: 300px;
-height: 200px;
+display: none;
 z-index: 100;
 overflow: hidden;
 
@@ -104,10 +103,9 @@ overflow: hidden;
     }
   
     .search-form {
-      display: flex;
-      align-items: center;
       justify-content: center;
-      margin-bottom: 1rem;
+
+
     }
   
     .result {

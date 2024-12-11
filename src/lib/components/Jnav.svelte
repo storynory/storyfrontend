@@ -5,27 +5,40 @@ import Search from "$lib/forms/search/search.svelte"
 
 <!-- Navigation bar HTML structure -->
 
-
+<nav class="j-bk-prime">
+ 
     <div class="navbar page-width" id="myNavbar">
         <a href="/">Storynory</a>
         <a href="/posts/">Stories</a>
         <a href="/pages/about-storynory/">About</a>
         <a href="/pages/about-storynory/">Support!</a>
-        <Search />
-</div>
+        <Search />    
+    </div>
 
+</nav>
+    <div class="result">
+        search results go here
+    </div>
 <style>
 
+.result {
+    position: relative; /* Change from absolute to relative */
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    width: 100%;
+    z-index: 100;
+    margin-top: 10px; /* Optional: Adds spacing below the nav bar */
+}
+    
     .navbar {
         display: flex;
-        
-        background-color: #007A5E;
-       position: relative;
+        flex-wrap: wrap;
+        position: relative;
         font-family: 'Quicksand', sans-serif;
         width: 100%;
         align-items: center; /* Vertically centre elements */
-         justify-content: start; /* Space out items */
-        padding: 0 20px; /* Optional: Add padding for the navbar */
+        justify-content: center; /* Space out items */
     }
 
 
@@ -54,28 +67,6 @@ import Search from "$lib/forms/search/search.svelte"
         animation: wacky 0.5s infinite;
     }
 
- 
-    .support {
-        display: flex;
-        position: relative;
-        background-color: midnightblue;
-        color: yellow;
-        width: 100%;
-        padding: 0 1rem;
-        text-align: center;
-    }
-  
-   .flex {
-    display: flex;
-    justify-content:space-evenly;
-
-   }
-
-
-    /* Add styles for the responsive navigation */
-    @media screen and (max-width: 600px) {
-       
-    }
 
     /* Keyframes animation for the wacky effect */
     @keyframes wacky {
@@ -100,50 +91,38 @@ import Search from "$lib/forms/search/search.svelte"
         }
     }
 
-    /* Hamburger menu styles */
- 
-
-.search-toggle .icon,
-.hamburger-menu .icon {
-    outline: none;
-    width: 24px;
-    height: 24px;
-    fill: green;
-}
-
-button {
-    border: none; /* Removes the default border */
-    padding: 0; /* Eliminates default padding */
-    margin: 0; /* Removes any margin */
-    cursor: pointer; /* Indicates it's clickable */
-}
-
-.hamburger-menu:focus {
-    outline: none;
-    box-shadow: 0 0 3px 2px rgba(255, 204, 0, 0.8); /* Adds a yellow glow on focus */
-}
-
-.search-toggle  {
-    margin: auto;
-    width: 600px;
-
-}
-
-
-
-
-@media (min-width: 600px) {
-    .search-form {
-        display: flex;
-        position: relative;
-        width: auto;
-        margin-top: auto;
-        margin-bottom: auto;
-         background-color: transparent;
-        border: transparent;
+    /*search results opn */
+    @keyframes openAnimation {
+    from {
+        max-height: 0;
     }
-
+    to {
+        max-height: 100px; /* Adjust to the maximum expected height */
+    }
 }
+
+@keyframes closeAnimation {
+    from {
+        max-height: 1000px; /* Same value as above */
+    }
+    to {
+        max-height: 0;
+    }
+}
+
+.result {
+    overflow: hidden;
+    max-height: 0;
+}
+
+.result.open {
+    animation: openAnimation 0.5s ease-out forwards;
+}
+
+.result.closed {
+    animation: closeAnimation 0.5s ease-out forwards;
+}
+
   
 </style>
 

@@ -1,10 +1,9 @@
-// src/routes/posts/[slug]/+page.js
+// src/routes/[slug]/+page.js
 export const prerender = false
 import { error } from '@sveltejs/kit';
 import {PUBLIC_GRAPHQL } from '$env/static/public';
 export async function load({ fetch, params }) {
 const { slug } = params;
-//  const slug = 'jakes-spell-of-bad-luck'
   console.log('Slug:', slug);
 
   const query = `

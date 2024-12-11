@@ -5,8 +5,8 @@
     import Banner from '$lib/components/snowBanner.svelte';
 
 </script>
-<Banner/>
-<main class="grid">
+<Banner />
+<main class="grid j-bk-white -p">
 {#each data.cat as fairy}
 
    <CatPanel 

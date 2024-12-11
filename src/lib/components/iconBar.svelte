@@ -8,8 +8,8 @@
 
  </script>
 
-<div class="icons">
-    <div class="page-width flex">
+<div class="icons j-bk-prime page-width ">
+    <div class="  flex">
         <div><Apple /></div>
         <div><Spotify /></div>
         <div><YouTube/></div>
@@ -21,10 +21,15 @@
 </div>
 
 <style>
+.icons {
+    width: 100%;
+}
+
 .icons .flex {
     display: flex;
     justify-content: start;
     flex-wrap: wrap;
+
     
 }
 

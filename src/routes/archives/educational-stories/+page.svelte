@@ -10,7 +10,7 @@
 <Banner
   img = {bk} 
 />
-<main class="grid">
+<main class="grid j-bk-white -p">
 {#each data.cat as fairy}
 
    <CatPanel 
