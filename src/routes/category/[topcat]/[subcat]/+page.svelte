@@ -9,23 +9,24 @@
 
     // Dynamically fetch and append the next posts
     async function loadMore() {
-        if (!hasNextPage) return;
+    if (!hasNextPage) return;
 
-        const query = `./?after=${encodeURIComponent(after)}`;
-        try {
-            const response = await fetch(query);
-            if (!response.ok) throw new Error('Failed to load more posts');
+    const query = `./?subcat=${data.cat.category.slug}&after=${encodeURIComponent(after)}`;
+    try {
+        const response = await fetch(query);
+        if (!response.ok) throw new Error('Failed to load more posts');
 
-            const result = await response.json();
+        const result = await response.json();
 
-            // Update state reactively
-            posts = [...posts, ...result.category.posts.nodes];
-            after = result.category.posts.pageInfo.endCursor;
-            hasNextPage = result.category.posts.pageInfo.hasNextPage;
-        } catch (error) {
-            console.error('Error loading more posts:', error);
-        }
+        // Update state reactively
+        posts = [...posts, ...result.category.posts.nodes];
+        after = result.category.posts.pageInfo.endCursor;
+        hasNextPage = result.category.posts.pageInfo.hasNextPage;
+    } catch (error) {
+        console.error('Error loading more posts:', error);
     }
+}
+
 </script>
 {#snippet renderCard(post)}
     <div class="card-item">
