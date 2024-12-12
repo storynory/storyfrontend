@@ -1,5 +1,5 @@
 <script>
-   
+  
     import Card from '$lib/components/panels/cardStory.svelte';
     import Banner from '$lib/components/Banner.svelte';
     let bk = 'background-image: url("/images/santa.webp")';
@@ -43,7 +43,7 @@
 
 <div class="page page-width">
     <Banner img={bk}/>
-    <IconBar/>
+  
 
     <main>
         {#if posts.length > 0}

@@ -2,7 +2,7 @@
 <script>
 	let { children } = $props();
   import "../app.css";
-  import Jnav from '$lib/components/Jnav.svelte';
+  import Jnav from '$lib/components/navs/Jnav.svelte';
  
 
 </script>

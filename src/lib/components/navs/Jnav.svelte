@@ -1,44 +1,56 @@
 <script>
-import Search from "$lib/forms/search/search.svelte"
-
+import Search from "$lib/components/navs/search/search.svelte"
+    import A from "../../../routes/[...error].svelte"
+ 
 </script>
 
 <!-- Navigation bar HTML structure -->
 
-<nav class="j-bk-prime">
- 
+<nav class="">
+    
     <div class="navbar page-width" id="myNavbar">
-        <a href="/">Storynory</a>
+        <a href="/">  <img class="bertie-icon" src="/images/bertie.svg" alt="bertie icon" height="120" width="82.4"/>
+            Storynory</a>
         <a href="/posts/">Stories</a>
         <a href="/pages/about-storynory/">About</a>
         <a href="/pages/about-storynory/">Support!</a>
         <Search />    
     </div>
-
 </nav>
-    <div class="result">
-        search results go here
-    </div>
+ 
 <style>
 
+.bertie-icon {
+display: inline-block;
+padding-right: 1em;
+
+}
+
+nav {
+    background-color: ivory;
+}
+
 .result {
-    position: relative; /* Change from absolute to relative */
-    display: flex;
-    justify-content: center;
+   position: absolute;
     background-color: white;
+    z-index: 100;  
     width: 100%;
-    z-index: 100;
-    margin-top: 10px; /* Optional: Adds spacing below the nav bar */
+}
+
+.result ul {
+    display: block;
+    width: 800px;
+    margin: auto;
 }
     
     .navbar {
         display: flex;
         flex-wrap: wrap;
         position: relative;
-        font-family: 'Quicksand', sans-serif;
         width: 100%;
         align-items: center; /* Vertically centre elements */
         justify-content: center; /* Space out items */
+    
     }
 
 
@@ -46,7 +58,6 @@ import Search from "$lib/forms/search/search.svelte"
     /* Style the navigation links */
     .navbar a {
         float: left;
-        color: white;
         text-align: center;
         padding: 14px 20px;
         text-decoration: none;
@@ -91,37 +102,7 @@ import Search from "$lib/forms/search/search.svelte"
         }
     }
 
-    /*search results opn */
-    @keyframes openAnimation {
-    from {
-        max-height: 0;
-    }
-    to {
-        max-height: 100px; /* Adjust to the maximum expected height */
-    }
-}
 
-@keyframes closeAnimation {
-    from {
-        max-height: 1000px; /* Same value as above */
-    }
-    to {
-        max-height: 0;
-    }
-}
-
-.result {
-    overflow: hidden;
-    max-height: 0;
-}
-
-.result.open {
-    animation: openAnimation 0.5s ease-out forwards;
-}
-
-.result.closed {
-    animation: closeAnimation 0.5s ease-out forwards;
-}
 
   
 </style>

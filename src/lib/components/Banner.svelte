@@ -12,7 +12,7 @@ let { img } = $props();
     <Snowfall />
     <div class="banner-content">
 
-        <h1 class="j-txt-white j-bk-prime">
+        <h1 class="j-txt-white">
             Storynory
         </h1>
         <p>Free Audio Stories</p>
@@ -26,8 +26,9 @@ let { img } = $props();
         background-size: cover;
         background-position: left 50%  !important;
         background-repeat: repeat-x;
+ 
         position: relative;
-        overflow: hidden;
+    
         width: 100%;
         z-index: 1;
         display: block;
@@ -56,6 +57,7 @@ let { img } = $props();
         text-align: center;
         letter-spacing: 2px;
         text-shadow: 3px 3px 6px rgba(0, 35, 102, 0.8);
+        background-color: rgba(0, 122, 94, 0.7); /* 0.5 is 50% opacity */;
         padding: 15px 25px;
         border-radius: 10px;
        
