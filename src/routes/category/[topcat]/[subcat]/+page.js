@@ -14,7 +14,7 @@ const response = await fetch(`./?subcat=${params.subcat}&after=${after}`);
         // Pass the data to the +page.svelte file
         let cat = data;
     
-        console.log("hello from page.js",  data.category.posts.pageInfo.endCursor)
+     
         return { 
 
             cat,// Data for initial posts

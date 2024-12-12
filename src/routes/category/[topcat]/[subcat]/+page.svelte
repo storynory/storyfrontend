@@ -1,7 +1,7 @@
 <script>
     // Get props using runes
     let { data } = $props();
-
+    import Card from '$lib/components/panels/cardStory.svelte';
     // Declare reactive state using $state
     let posts = $state([...data.cat.category.posts.nodes]); // Initial posts
     let hasNextPage = $state(data.hasNextPage); // Determines if more posts are available
@@ -27,13 +27,27 @@
         }
     }
 </script>
+{#snippet renderCard(post)}
+    <div class="card-item">
+        <Card  
+            sizes={post.featuredImage?.node?.mediaDetails?.sizes || []}
+            title={post.title}
+            content={post.excerpt}
+        
+            src={post.featuredImage.node.mediaDetails.sizes[1].sourceUrl}
+         
+            alt={post.featuredImage.node.altText}
+            slug={post.slug}
+        />
+
+    </div>
+{/snippet}
 <div class="page -p">
     <main class="j-bk-white -p" >
         <ul>
             {#each posts as post}
                 <li>
-                    <h2><a href="/{post.slug}/">{@html post.title}</a></h2>
-                    <p class="excerpt">{@html post.excerpt.replace(/^<[^>]+>|<[^>]+>$/g, "")}</p>
+                    {@render renderCard(post)}
                 </li>
             {/each}
         </ul>

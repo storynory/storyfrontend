@@ -3,9 +3,9 @@
     import A from "../../../routes/[...error].svelte"
 import "./container.css";
     let { title, content, src, alt, slug,sizes } = $props();
-    let medium = sizes.find(size => size.name === "medium");
-    let thumb = sizes.find(size => size.name === "thumbnail");
- 
+  let medium = sizes?.find(size => size.width === "600") || sizes?.[0] || null;
+  let thumb = sizes?.find(size => size.width === "300") || sizes?.[0] || null
+    console.log('Sizes data:', sizes);
 </script>
  
 <div class ="card -p shadow -m">
@@ -13,8 +13,10 @@ import "./container.css";
     <h2> <a href="/{slug}/" >{title}</a></h2>   
     </header>
     <section class="-p">
+        {#if thumb && medium}
         <figure class="-p-r -p-b">
             <a href="/{slug}/" aria-label="Read more about Seminole tax hike">
+           
                 <picture>
                     <source 
                       srcset="{thumb.sourceUrl}" 
@@ -35,11 +37,9 @@ import "./container.css";
                       height="{medium.height}"
                       >
                   </picture>
-                
-       
             </a>
         </figure>
-           
+           {/if}
         <article>
             {@html content}   
         </article>

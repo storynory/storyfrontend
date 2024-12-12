@@ -15,7 +15,7 @@ export async function GET({ url }) {
     const first = 10; // Default 10 posts per page
     const after = url.searchParams.get('after') || null; // Cursor for pagination
     const now = Date.now();
-   //console.log("hello from server", after)
+
     // Cache key includes pagination
     const cacheKey = `${subcat}-${after || 'start'}`;
 
@@ -31,28 +31,35 @@ export async function GET({ url }) {
     }
 
     const query = `
-        query MyQuery($slug: ID!, $first: Int!, $after: String) {
-            category(id: $slug, idType: SLUG) {
-                description
-                slug
-                posts(first: $first, after: $after) {
-                    nodes {
-                        excerpt
-                        featuredImage {
-                            node {
-                                guid
-                            }
-                        }
-                        title
-                        slug
-                    }
-                    pageInfo {
-                        endCursor
-                        hasNextPage
-                    }
-                }
+   query MyQuery($slug: ID!, $first: Int!, $after: String) {
+  category(id: $slug, idType: SLUG) {
+    description
+    slug
+    posts(first: $first, after: $after) {
+      nodes {
+        excerpt
+        featuredImage {
+          node {
+      
+            mediaDetails {
+              sizes {
+                height
+                width
+                sourceUrl
+              }
             }
+          }
         }
+        title
+        slug
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+    }
+  }
+}
     `;
 
     const variables = { slug: subcat, first, after};
@@ -74,7 +81,7 @@ export async function GET({ url }) {
         // Cache the fetched data
         cache.set(cacheKey, { data: result.data, timestamp: now });
      
-        console.log("hello from server", result.data.category.posts.nodes[0].title)
+
         return json(result.data);
         
     } catch (error) {
