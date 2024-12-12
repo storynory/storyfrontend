@@ -11,8 +11,11 @@ let cache = new Map();
 const cacheDuration = 1000 * 10 * 60; // 10 minutes
 
 export async function GET({ url }) {
-    const subcat = url.searchParams.get('subcat') || "brothers-grimm";
-    const first = 10; // Default 10 posts per page
+    const subcat = url.searchParams.get('subcat');
+if (!subcat) {
+    return json({ error: 'Subcategory is required' }, { status: 400 });
+}
+    const first = 30; // Default 10 posts per page
     const after = url.searchParams.get('after') || null; // Cursor for pagination
     const now = Date.now();
 

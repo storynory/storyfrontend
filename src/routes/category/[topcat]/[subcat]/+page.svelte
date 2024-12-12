@@ -1,6 +1,7 @@
 <script>
     // Get props using runes
     let { data } = $props();
+    let isReversed = $state();
     import Card from '$lib/components/panels/cardStory.svelte';
     // Declare reactive state using $state
     let posts = $state([...data.cat.category.posts.nodes]); // Initial posts
@@ -18,8 +19,16 @@
 
         const result = await response.json();
 
-        // Update state reactively
-        posts = [...posts, ...result.category.posts.nodes];
+        let newPosts = result.category.posts.nodes;
+
+        if (isReversed) {
+            // Prepend new posts when reversed
+            posts = [...newPosts.reverse(), ...posts];
+        } else {
+            // Append new posts when not reversed
+            posts = [...posts, ...newPosts];
+        }
+
         after = result.category.posts.pageInfo.endCursor;
         hasNextPage = result.category.posts.pageInfo.hasNextPage;
     } catch (error) {
@@ -27,26 +36,36 @@
     }
 }
 
+function reverseOrder() {
+    isReversed = !isReversed;
+    posts = [...posts].reverse(); // Reverse the array in place
+}
 </script>
 {#snippet renderCard(post)}
     <div class="card-item">
         <Card  
-            sizes={post.featuredImage?.node?.mediaDetails?.sizes || []}
-            title={post.title}
-            content={post.excerpt}
-        
-            src={post.featuredImage.node.mediaDetails.sizes[1].sourceUrl}
-         
-            alt={post.featuredImage.node.altText}
-            slug={post.slug}
+        sizes={post.featuredImage?.node?.mediaDetails?.sizes || []}
+        title={post.title}
+        content={post.excerpt}
+        src={post.featuredImage?.node?.mediaDetails?.sizes?.[1]?.sourceUrl || '/placeholder-image.jpg'}
+        alt={post.featuredImage?.node?.altText || 'Default Alt Text'}
+        slug={post.slug}
         />
 
     </div>
 {/snippet}
 <div class="page -p">
     <main class="j-bk-white -p" >
+        <button onclick={reverseOrder}>
+            Reverse Order
+        </button>
+          {#if hasNextPage && isReversed === true}
+            <button onclick={loadMore} disabled={!hasNextPage}>
+                {hasNextPage ? 'Load More' : 'No More Posts'}
+            </button>
+        {/if}
         <ul>
-            {#each posts as post}
+            {#each posts as post (post.slug)}
                 <li>
                     {@render renderCard(post)}
                 </li>
