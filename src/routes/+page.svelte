@@ -1,3 +1,4 @@
+// src/routes/+page.js
 <script>
   
     import Card from '$lib/components/panels/cardStory.svelte';

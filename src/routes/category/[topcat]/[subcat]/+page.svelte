@@ -2,6 +2,8 @@
     // Get props using runes
     let { data } = $props();
     let isReversed = $state();
+    let categoryDescription = data?.cat?.category?.description || "Default Description";
+    let categoryName = data?.cat?.category?.name || "Default Category Name";
     import Card from '$lib/components/panels/cardStory.svelte';
     // Declare reactive state using $state
     let posts = $state([...data.cat.category.posts.nodes]); // Initial posts
@@ -44,18 +46,22 @@ function reverseOrder() {
 {#snippet renderCard(post)}
     <div class="card-item">
         <Card  
-        sizes={post.featuredImage?.node?.mediaDetails?.sizes || []}
+        sizes={post.featuredImage.node.mediaDetails.sizes}
         title={post.title}
         content={post.excerpt}
-        src={post.featuredImage?.node?.mediaDetails?.sizes?.[1]?.sourceUrl || '/placeholder-image.jpg'}
-        alt={post.featuredImage?.node?.altText || 'Default Alt Text'}
+        alt={post.featuredImage.node.altText}
         slug={post.slug}
-        />
+      />
+      
 
     </div>
 {/snippet}
-<div class="page -p">
+<div class="page page-width">
     <main class="j-bk-white -p" >
+ <header>   
+<h1>{categoryName}</h1>
+{@html categoryDescription}
+</header> 
         <button onclick={reverseOrder}>
             Reverse Order
         </button>
@@ -85,21 +91,12 @@ function reverseOrder() {
         list-style: none;
     }
 
-    h2 {
-        font-size: 40px;
-        color: green;
-    }
+  
 
-    p.excerpt {
-        font-weight: 500;
-        font-size: 24px;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    ul {
-        width: 600px;
-    }
-
+ul {
+    max-width: 780px;
+}
+ 
     button {
         margin-top: 20px;
         padding: 10px 20px;
@@ -117,37 +114,11 @@ function reverseOrder() {
     }
 
 
-    @media (min-width: 776px) {
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Three equal columns */
-    gap: 1rem; /* Adjust the gap between grid items as needed */
-  }
-
-
-}
+  
 
 
 
-@media (min-width: 992px) {
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Three equal columns */
-    gap: 1rem; /* Adjust the gap between grid items as needed */
-  }
 
- 
-}
-
-@media (min-width: 1500px) {
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Three equal columns */
-    gap: 1rem; /* Adjust the gap between grid items as needed */
-  }
-
- 
-}
 
 
 

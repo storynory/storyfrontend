@@ -14,7 +14,7 @@ import Search from "$lib/components/navs/search/search.svelte"
         <a href="/posts/">Stories</a>
         <a href="/pages/about-storynory/">About</a>
         <a href="/pages/about-storynory/">Support!</a>
-        <Search />    
+     
     </div>
 </nav>
  
