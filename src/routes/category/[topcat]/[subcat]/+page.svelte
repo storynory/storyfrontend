@@ -1,9 +1,6 @@
 <script>
     // Get props using runes
     let { data } = $props();
-    let isReversed = $state();
-    let categoryDescription = data?.cat?.category?.description || "Default Description";
-    let categoryName = data?.cat?.category?.name || "Default Category Name";
     import Card from '$lib/components/panels/cardStory.svelte';
     // Declare reactive state using $state
     let posts = $state([...data.cat.category.posts.nodes]); // Initial posts
@@ -21,44 +18,35 @@
 
             const result = await response.json();
 
-            // Update state reactively
-            posts = [...posts, ...result.category.posts.nodes];
-            after = result.category.posts.pageInfo.endCursor;
-            hasNextPage = result.category.posts.pageInfo.hasNextPage;
-        } catch (error) {
-            console.error('Error loading more posts:', error);
-        }
+        // Update state reactively
+        posts = [...posts, ...result.category.posts.nodes];
+        after = result.category.posts.pageInfo.endCursor;
+        hasNextPage = result.category.posts.pageInfo.hasNextPage;
+    } catch (error) {
+        console.error('Error loading more posts:', error);
     }
+}
+
 </script>
 {#snippet renderCard(post)}
     <div class="card-item">
         <Card  
-        sizes={post.featuredImage.node.mediaDetails.sizes}
-        title={post.title}
-        content={post.excerpt}
-        alt={post.featuredImage.node.altText}
-        slug={post.slug}
-      />
-      
+            sizes={post.featuredImage?.node?.mediaDetails?.sizes || []}
+            title={post.title}
+            content={post.excerpt}
+        
+            src={post.featuredImage.node.mediaDetails.sizes[1].sourceUrl}
+         
+            alt={post.featuredImage.node.altText}
+            slug={post.slug}
+        />
 
     </div>
 {/snippet}
 <div class="page page-width">
     <main class="j-bk-white -p" >
- <header>   
-<h1>{categoryName}</h1>
-{@html categoryDescription}
-</header> 
-        <button onclick={reverseOrder}>
-            Reverse Order
-        </button>
-          {#if hasNextPage && isReversed === true}
-            <button onclick={loadMore} disabled={!hasNextPage}>
-                {hasNextPage ? 'Load More' : 'No More Posts'}
-            </button>
-        {/if}
         <ul>
-            {#each posts as post (post.slug)}
+            {#each posts as post}
                 <li>
                     {@render renderCard(post)}
                 </li>
