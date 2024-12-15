@@ -12,36 +12,23 @@
 
     // Dynamically fetch and append the next posts
     async function loadMore() {
-    if (!hasNextPage) return;
+        if (!hasNextPage) return;
 
-    const query = `./?subcat=${data.cat.category.slug}&after=${encodeURIComponent(after)}`;
-    try {
-        const response = await fetch(query);
-        if (!response.ok) throw new Error('Failed to load more posts');
+        const query = `./?after=${encodeURIComponent(after)}`;
+        try {
+            const response = await fetch(query);
+            if (!response.ok) throw new Error('Failed to load more posts');
 
-        const result = await response.json();
+            const result = await response.json();
 
-        let newPosts = result.category.posts.nodes;
-
-        if (isReversed) {
-            // Prepend new posts when reversed
-            posts = [...newPosts.reverse(), ...posts];
-        } else {
-            // Append new posts when not reversed
-            posts = [...posts, ...newPosts];
+            // Update state reactively
+            posts = [...posts, ...result.category.posts.nodes];
+            after = result.category.posts.pageInfo.endCursor;
+            hasNextPage = result.category.posts.pageInfo.hasNextPage;
+        } catch (error) {
+            console.error('Error loading more posts:', error);
         }
-
-        after = result.category.posts.pageInfo.endCursor;
-        hasNextPage = result.category.posts.pageInfo.hasNextPage;
-    } catch (error) {
-        console.error('Error loading more posts:', error);
     }
-}
-
-function reverseOrder() {
-    isReversed = !isReversed;
-    posts = [...posts].reverse(); // Reverse the array in place
-}
 </script>
 {#snippet renderCard(post)}
     <div class="card-item">
