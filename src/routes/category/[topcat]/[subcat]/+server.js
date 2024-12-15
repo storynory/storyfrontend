@@ -1,3 +1,5 @@
+// routes/+server.js
+
 import { json } from '@sveltejs/kit';
 import { PUBLIC_GRAPHQL } from '$env/static/public';
 import {page } from './shared.svelte.js';

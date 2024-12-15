@@ -1,4 +1,5 @@
 <script>
+    //routes/+page.svelte
     // Get props using runes
     let { data } = $props();
     import Card from '$lib/components/panels/cardStory.svelte';

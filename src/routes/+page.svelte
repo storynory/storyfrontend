@@ -1,6 +1,5 @@
-// src/routes/+page.js
 <script>
-  
+  // src/routes/+page.js
     import Card from '$lib/components/panels/cardStory.svelte';
     import Banner from '$lib/components/Banner.svelte';
     let bk = 'background-image: url("/images/santa.webp")';
