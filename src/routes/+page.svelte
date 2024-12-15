@@ -1,3 +1,4 @@
+
 <script>
   // src/routes/+page.js
     import Card from '$lib/components/panels/cardStory.svelte';
@@ -25,19 +26,13 @@
 {#snippet renderCard(post)}
     <div class="card-item">
         <Card  
-            sizes = {post.featuredImage.node.mediaDetails.sizes}
+            sizes={post.featuredImage?.node?.mediaDetails?.sizes || []}
             title={post.title}
             content={post.excerpt}
-            thumb={post.featuredImage.node.mediaDetails.sizes[0].sourceUrl }
-            thumbwidth={post.featuredImage.node.mediaDetails.sizes[0].width}
-            thumbheight={post.featuredImage.node.mediaDetails.sizes[0].height}
-            src={post.featuredImage.node.mediaDetails.sizes[1].sourceUrl}
-            width={post.featuredImage.node.mediaDetails.sizes[1].width}
-            height={post.featuredImage.node.mediaDetails.sizes[1].height}
-            alt={post.featuredImage.node.altText}
+            src={post.featuredImage?.node?.mediaDetails?.sizes?.[1]?.sourceUrl || ''}
+            alt={post.featuredImage?.node?.altText || ''}
             slug={post.slug}
         />
-
     </div>
 {/snippet}
 

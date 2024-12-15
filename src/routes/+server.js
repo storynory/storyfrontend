@@ -1,61 +1,58 @@
 // src/routes/posts/+server.js
-import { gql, request } from 'graphql-request';
 import { PUBLIC_GRAPHQL } from '$env/static/public';
-const endpoint =  PUBLIC_GRAPHQL
 
-// Cache variables
-let cache = null;
-let cacheTime = 0;
-const cacheDuration = 1000 * 10 * 60; // 10 minutes
+const endpoint = PUBLIC_GRAPHQL;
 
 export async function GET() {
-  const now = Date.now();
-
-  // Check if we have valid cached data
-  if (cache && now - cacheTime < cacheDuration) {
-    console.log('Returning cached data');
-    return new Response(JSON.stringify(cache), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-
-  // If no valid cache, fetch fresh data
-  const query = gql`
-query MyQuery {
- posts(first: 10) {
-    nodes {
-      excerpt
-      title
-      slug
-      featuredImage {
-        node {
-          altText
-          mediaDetails {
-            sizes {
-              name
-              sourceUrl
-              height
-              width
+  // GraphQL query to fetch posts
+  const query = `
+    query MyQuery {
+      posts(first: 12) {
+        nodes {
+          excerpt
+          title
+          slug
+          featuredImage {
+            node {
+              altText
+              mediaDetails {
+                sizes {
+                  name
+                  sourceUrl
+                  height
+                  width
+                }
+              }
             }
           }
         }
       }
     }
-  }
-}
-`;
+  `;
 
   try {
-    const data = await request(endpoint, query);
-    
-  
-    let  stories = data.posts.nodes
-    // Update cache with the fetched data and cache time
-    cache = { stories };
-    cacheTime = now;
+    // Encode the query into the URL
+    const url = new URL(endpoint);
+    url.searchParams.append('query', query);
+    url.searchParams.append('limit', 10);
 
-    return new Response(JSON.stringify(cache), {
+    // Fetch data from GraphQL endpoint using GET
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    // Parse the response
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    const stories = data.data.posts.nodes;
+
+    // Return the stories as a JSON response
+    return new Response(JSON.stringify({ stories }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });

@@ -2,11 +2,8 @@
 
 import { json } from '@sveltejs/kit';
 import { PUBLIC_GRAPHQL } from '$env/static/public';
-import {page } from './shared.svelte.js';
 
 const endpoint = PUBLIC_GRAPHQL;
-
-
 
 // Cache variables
 let cache = new Map();
@@ -14,7 +11,7 @@ const cacheDuration = 1000 * 10 * 60; // 10 minutes
 
 export async function GET({ url }) {
     const subcat = url.searchParams.get('subcat') || "brothers-grimm";
-    const first = 10; // Default 10 posts per page
+    const first = parseInt(url.searchParams.get('first')) || 10; // Default 10 posts per page
     const after = url.searchParams.get('after') || null; // Cursor for pagination
     const now = Date.now();
 
@@ -25,54 +22,51 @@ export async function GET({ url }) {
     if (cache.has(cacheKey)) {
         const { data, timestamp } = cache.get(cacheKey);
         if (now - timestamp < cacheDuration) {
-           // console.log(`hello from server: Returning cached data for key: ${cacheKey}`);
-            return json(data);
+            return json({ ...data, cacheHit: true }); // Indicate cache was used
         } else {
             cache.delete(cacheKey); // Cache expired
         }
     }
 
+    // Construct the GraphQL query and encode it into the URL
     const query = `
-   query MyQuery($slug: ID!, $first: Int!, $after: String) {
-  category(id: $slug, idType: SLUG) {
-    description
-    slug
-    posts(first: $first, after: $after) {
-      nodes {
-        excerpt
-        featuredImage {
-          node {
-      
-            mediaDetails {
-              sizes {
-                height
-                width
-                sourceUrl
-              }
+    query MyQuery($slug: ID!, $first: Int!, $after: String) {
+        category(id: $slug, idType: SLUG) {
+            description
+            slug
+            posts(first: $first, after: $after) {
+                nodes {
+                    excerpt
+                    featuredImage {
+                        node {
+                            mediaDetails {
+                                sizes {
+                                    height
+                                    width
+                                    sourceUrl
+                                }
+                            }
+                        }
+                    }
+                    title
+                    slug
+                }
+                pageInfo {
+                    endCursor
+                    hasNextPage
+                }
             }
-          }
         }
-        title
-        slug
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-      }
     }
-  }
-}
     `;
 
-    const variables = { slug: subcat, first, after};
+    const variables = { slug: subcat, first, after };
+    const graphqlURL = new URL(endpoint);
+    graphqlURL.searchParams.append('query', query);
+    graphqlURL.searchParams.append('variables', JSON.stringify(variables));
 
     try {
-        const response = await fetch(endpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ query, variables })
-        });
-
+        const response = await fetch(graphqlURL, { method: 'GET' });
         const result = await response.json();
 
         if (result.errors) {
@@ -82,12 +76,10 @@ export async function GET({ url }) {
 
         // Cache the fetched data
         cache.set(cacheKey, { data: result.data, timestamp: now });
-     
 
-        return json(result.data);
-        
+        return json({ ...result.data, cacheHit: false }); // Indicate fresh fetch
     } catch (error) {
         console.error(error);
-        return { error: 'Failed to load category data' };
+        return json({ error: 'Failed to load category data' }, { status: 500 });
     }
 }
